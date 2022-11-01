@@ -1,44 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePacienteDto } from './dto/create-paciente.dto';
-import { UpdatePacienteDto } from './dto/update-paciente.dto';
+import { Paciente } from './entities/paciente.entity';
 import { Pacientes } from './schema/pacientes.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { PacientesDto } from './dto/get-paciente.dto';
 
 @Injectable()
 export class PacientesService {
   constructor(
     @InjectModel(Pacientes.name) private pacientesModel: Model<Pacientes>,
   ) {}
-  create(createPacienteDto: CreatePacienteDto) {
-    return 'This action adds a new paciente';
+
+  async findOne(dni: string): Promise<Paciente | null> {
+    const paciente: Paciente = await this.pacientesModel.findOne({ dni: dni });
+
+    return paciente || null;
   }
 
-  async findAll(page: number = 0, qty: number = 50): Promise<PacientesDto> {
-    const total = await this.pacientesModel.count();
-    const data = await this.pacientesModel
-      .find()
-      .skip(qty * page)
-      .limit(qty)
-      .exec();
-    const pacientes = {
-      total: total,
-      offset: page,
-      data: data,
-    };
-    return pacientes;
-  }
+  async update(paciente: Paciente): Promise<{ msg: string; data: Paciente }> {
+    console.log('Ingrese en update Paciente');
+    const pacienteViejo = await this.pacientesModel.findOne({
+      dni: paciente.dni,
+    });
 
-  findOne(id: number) {
-    return `This action returns a #${id} paciente`;
-  }
+    pacienteViejo.apellidos = paciente.apellidos || pacienteViejo.apellidos;
+    pacienteViejo.nombre = paciente.nombre || pacienteViejo.nombre;
+    pacienteViejo.direccion = paciente.direccion || pacienteViejo.direccion;
+    pacienteViejo.telefono = paciente.telefono || pacienteViejo.telefono;
+    pacienteViejo.email = paciente.email || pacienteViejo.email;
+    pacienteViejo.celular = paciente.celular || pacienteViejo.celular;
 
-  update(id: number, updatePacienteDto: UpdatePacienteDto) {
-    return `This action updates a #${id} paciente`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} paciente`;
+    pacienteViejo.save();
+    return { msg: 'Paciente actualizado', data: pacienteViejo.toObject() };
   }
 }

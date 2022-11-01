@@ -4,6 +4,11 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: ['http://localhost:4200', 'http://localhost:3000'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Accept',
+  });
   const config = new DocumentBuilder()
     .setTitle('API CRUD Pacientes')
     .setDescription('Poder editar y listar pacientes desde la webAPP')
@@ -12,6 +17,8 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('documentation', app, document);
-  await app.listen(3000);
+  const PORT = process.env.PORT || 3000;
+  await app.listen(PORT);
+  console.log(`Application is running on http://localhost:${PORT}`);
 }
 bootstrap();
