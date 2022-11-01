@@ -17,6 +17,7 @@ export class PacientesService {
   }
 
   async update(paciente: Paciente): Promise<{ msg: string; data: Paciente }> {
+    console.log('Ingrese en update Paciente');
     const pacienteViejo = await this.pacientesModel.findOne({
       dni: paciente.dni,
     });
