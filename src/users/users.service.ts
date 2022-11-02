@@ -15,7 +15,6 @@ export class UsersService {
   async findOne(email: string): Promise<User | undefined> {
     const user = await this.usersModel.findOne({ email: email });
 
-    console.log(user.toObject());
-    return user;
+    return user.toObject() ? user.toObject() : undefined;
   }
 }
