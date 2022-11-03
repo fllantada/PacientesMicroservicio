@@ -5,7 +5,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: ['http://localhost:4200', 'http://localhost:3000'],
+    origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type, Accept',
   });
@@ -19,6 +19,6 @@ async function bootstrap() {
   SwaggerModule.setup('documentation', app, document);
   const PORT = process.env.PORT || 3000;
   await app.listen(PORT);
-  console.log(`Application is running on http://localhost:${PORT}`);
+  console.log(`Application is running on ${__dirname}:${PORT}`);
 }
 bootstrap();
