@@ -1,15 +1,15 @@
-import { Controller, Request, Post, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, Request, Get } from '@nestjs/common';
+import { Public } from './auth/decorators/public.decorator';
 
 @Controller()
 export class AppController {
   constructor() {
     console.log('Inicie app.controller.ts');
   }
-  @UseGuards(AuthGuard('local'))
-  @Post('auth/login')
+  @Get('')
+  @Public()
   async login(@Request() req) {
     console.log(req.user);
-    return req.user;
+    return 'BIENVENIDO A LA WEB';
   }
 }
