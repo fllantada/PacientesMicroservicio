@@ -22,8 +22,7 @@ export class PacientesService {
       dni: paciente.dni,
     });
 
-    pacienteViejo.apellidos = paciente.apellidos || pacienteViejo.apellidos;
-    pacienteViejo.nombre = paciente.nombre || pacienteViejo.nombre;
+
     pacienteViejo.direccion = paciente.direccion || pacienteViejo.direccion;
     pacienteViejo.telefono = paciente.telefono || pacienteViejo.telefono;
     pacienteViejo.email = paciente.email || pacienteViejo.email;

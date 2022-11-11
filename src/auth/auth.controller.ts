@@ -1,8 +1,9 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Req } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { Public } from './decorators/public.decorator';
 import { AuthDto } from './dto/auth.dto';
+import { Request } from 'express';
 
 /* import { RegisterAuthDto } from './dto/register-auth.dto'; */
 
@@ -18,7 +19,8 @@ export class AuthController {
 
   @Post('login')
   @Public()
-  handleLogin(@Body() loginBody: AuthDto) {
-    return this.authService.login(loginBody.email);
+  handleLogin(@Req() request: Request, @Body() loginBody: AuthDto) {
+    console.log(request.headers);
+    return this.authService.login(loginBody.email, loginBody.hash);
   }
 }

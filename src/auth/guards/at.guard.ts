@@ -9,6 +9,8 @@ export class AtGuard extends AuthGuard('jwt') {
   }
 
   canActivate(context: ExecutionContext) {
+    console.log('Entre a canActivate');
+
     const isPublic = this.reflector.getAllAndOverride('isPublic', [
       context.getHandler(),
       context.getClass(),
