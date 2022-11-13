@@ -6,8 +6,11 @@ enum Role {
   Paciente = 'Paciente',
   Odontologo = 'Odontologo',
 }
+
+export type DarmasUserDocument = DarmasUser & Document;
+
 @Schema()
-export class DarmasUsers extends Document {
+export class DarmasUser extends Document {
   @Prop({ required: true, unique: true, lowercase: true })
   email: string;
   @Prop()
@@ -23,4 +26,4 @@ export class DarmasUsers extends Document {
   access: Role;
 }
 
-export const DarmasUsersSchema = SchemaFactory.createForClass(DarmasUsers);
+export const DarmasUserSchema = SchemaFactory.createForClass(DarmasUser);

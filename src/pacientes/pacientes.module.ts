@@ -3,6 +3,7 @@ import { PacientesService } from './pacientes.service';
 import { PacientesController } from './pacientes.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Pacientes, PacientesSchema } from './schema/pacientes.schema';
+import { PacientesRepository } from './pacientes.repository';
 
 @Module({
   imports: [
@@ -11,6 +12,6 @@ import { Pacientes, PacientesSchema } from './schema/pacientes.schema';
     ]),
   ],
   controllers: [PacientesController],
-  providers: [PacientesService],
+  providers: [PacientesService, PacientesRepository],
 })
 export class PacientesModule {}
