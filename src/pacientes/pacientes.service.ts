@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Paciente } from './entities/paciente.entity';
+import { Paciente } from './domain/entities/paciente.entity';
 import { Pacientes } from './schema/pacientes.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -21,7 +21,6 @@ export class PacientesService {
     const pacienteViejo = await this.pacientesModel.findOne({
       dni: paciente.dni,
     });
-
 
     pacienteViejo.direccion = paciente.direccion || pacienteViejo.direccion;
     pacienteViejo.telefono = paciente.telefono || pacienteViejo.telefono;

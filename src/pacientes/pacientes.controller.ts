@@ -1,6 +1,6 @@
 import { Controller, Get, Body, Patch, Param } from '@nestjs/common';
 import { PacientesService } from './pacientes.service';
-import { Paciente } from './entities/paciente.entity';
+import { Paciente } from './domain/entities/paciente.entity';
 
 import { ApiTags } from '@nestjs/swagger';
 

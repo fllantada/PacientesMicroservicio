@@ -1,10 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { Paciente } from './entities/paciente.entity';
+import { Paciente } from './domain/entities/paciente.entity';
 import { Pacientes } from './schema/pacientes.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { PacientesInterfaceRepository } from './domain/pacientes.interface.repository';
 
-export class PacientesRepository {
+@Injectable()
+export class PacientesRepository implements PacientesInterfaceRepository {
   constructor(
     @InjectModel(Pacientes.name) private pacientesModel: Model<Pacientes>,
   ) {}
