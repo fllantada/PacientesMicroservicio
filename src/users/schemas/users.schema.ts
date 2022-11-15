@@ -1,11 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-enum Role {
-  Administrador = 'Administrador',
-  Usuario = 'Usuario',
-  Paciente = 'Paciente',
-  Odontologo = 'Odontologo',
-}
+
+type Role = 'Administrador' | 'Usuario' | 'Paciente | Odontologo';
 
 export type DarmasUserDocument = DarmasUser & Document;
 
@@ -14,7 +10,7 @@ export class DarmasUser extends Document {
   @Prop({ required: true, unique: true, lowercase: true })
   email: string;
   @Prop()
-  name?: string;
+  name?: String;
   @Prop()
   data?: any[];
   @Prop({ type: Date, default: Date.now })
@@ -22,7 +18,7 @@ export class DarmasUser extends Document {
   @Prop()
   lastlogin?: Date;
 
-  @Prop({ type: String, enum: Role, default: 'Usuario' })
+  @Prop({ type: String, default: 'Usuario' })
   access: Role;
 }
 

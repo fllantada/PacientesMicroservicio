@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AtGuard } from './auth/guards/at.guard';
 import { AppController } from './app.controller';
+import { LiquidacionesModule } from './liquidaciones/liquidaciones.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { AppController } from './app.controller';
     PacientesModule,
     AuthModule,
     UsersModule,
+    LiquidacionesModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: AtGuard }],
   controllers: [AppController],
