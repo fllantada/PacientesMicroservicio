@@ -4,11 +4,11 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly userRepository: UsersRepository) {}
+  constructor(private readonly repository: UsersRepository) {}
 
   async findUserByEmail(email: string): Promise<User | undefined> {
     console.log('Entre a findUserByEmail');
-    const user = await this.userRepository.findOne({ email: email });
+    const user = await this.repository.findOne({ email: email });
 
     return user.toObject() ? user.toObject() : undefined;
   }

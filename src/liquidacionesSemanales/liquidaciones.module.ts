@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { LiquidacionesService } from './liquidaciones.service';
 import { LiquidacionesController } from './liquidaciones.controller';
+import { LiquidacionesService } from './liquidaciones.service';
+import { LiquidacionesRepository } from './liquidaciones.repository';
 
 @Module({
   controllers: [LiquidacionesController],
-  providers: [LiquidacionesService]
+  providers: [LiquidacionesService, LiquidacionesRepository],
 })
 export class LiquidacionesModule {}

@@ -1,104 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { ILiquidacionesRepository } from './domain/ILiquidaciones.repository';
-import { LiquidacionDentista } from './domain/entities/LiquidacionDentista';
-import { PagoSede } from './domain/entities/PagoSede';
-import { Sede } from './domain/entities/Sede';
-import { LiquidacionSemanalSedeCreator } from './LiquidacionSemanalSedeCreator';
-
-type EmptyLiquidaciones = any;
+import { CreateLiquidacioneDto } from './dto/create-liquidacione.dto';
+import { UpdateLiquidacioneDto } from './dto/update-liquidacione.dto';
 
 @Injectable()
 export class LiquidacionesService {
-  private liquidacionesTerminadas: Array<any> = [];
-  private liquidacionesSedes = [];
-
-  constructor(private readonly repository: ILiquidacionesRepository) {}
-
-  async createLiquidacionesSemanales(): Promise<any> {
-    const { pagos, sedes, liquidaciones } = await this.getUpdatedData();
-    this.liquidacionesSedes = await this.createEmptyLiquidaciones(sedes);
-
-    pagos.forEach((pago: PagoSede) => this.addPagoToLiquidaciones(pago));
-
-    pagos.forEach((pago: PagoSede) => {
-      // a que sede pertenece?
-      const idSucursal = pago.id_sucursal;
-      // filtro
-
-      const liquidacionSede: LiquidacionSemanalSedeCreator =
-        this.liquidacionesSedes.filter(
-          (liq: LiquidacionSemanalSedeCreator) => liq.idSucursal === idSucursal,
-        )[0];
-      // agrego el pago
-      liquidacionSede.agregarPago(pago);
-    });
-
-    // recorro liquidaciones y las voy agregando a las liquidaciones de la sede correspondiente
-
-    liquidaciones.forEach((liquidacion: LiquidacionDentista) => {
-      const idSucursal = liquidacion.id_sucursal;
-      const liquidacionSede: LiquidacionSemanalSedeCreator =
-        this.liquidacionesSedes.filter(
-          (liq: LiquidacionSemanalSedeCreator) => liq.idSucursal === idSucursal,
-        )[0];
-      liquidacionSede.agregarLiquidacion(liquidacion);
-    });
-
-    this.liquidacionesSedes.forEach(
-      (liquidacionTerminada: LiquidacionSemanalSedeCreator) => {
-        const liq = liquidacionTerminada.getResumenLiquidacion();
-        this.liquidacionesTerminadas.push(liq);
-      },
-    );
-
-    return this.liquidacionesTerminadas;
+  create(createLiquidacioneDto: CreateLiquidacioneDto) {
+    return 'This action adds a new liquidacione';
   }
 
-  addPagoToLiquidaciones(pago: PagoSede) {
-    // filtro
-    const liquidacionSede = this.findLiquidacion(pago.id_sucursal);
-    // agrego el pago
-    liquidacionSede.agregarPago(pago);
+  findAll() {
+    return `This action returns all liquidaciones`;
   }
 
-  findLiquidacion(idSucursal: number): LiquidacionSemanalSedeCreator {
-    return this.liquidacionesSedes.filter(
-      (liq: LiquidacionSemanalSedeCreator) => liq.idSucursal === idSucursal,
-    )[0];
+  findOne(id: number) {
+    return `This action returns a #${id} liquidacione`;
   }
 
-  async createEmptyLiquidaciones(sedes: Sede[]): Promise<EmptyLiquidaciones[]> {
-    const liquidacionesSedes = sedes.map(
-      (sede: any) =>
-        new LiquidacionSemanalSedeCreator(
-          sede.name,
-          sede.id_dentalink,
-          this.repository.fechaInicio,
-          this.repository.fechaFin,
-        ),
-    );
-
-    return liquidacionesSedes;
+  update(id: number, updateLiquidacioneDto: UpdateLiquidacioneDto) {
+    return `This action updates a #${id} liquidacione`;
   }
 
-  async getUpdatedData(): Promise<{
-    pagos: PagoSede[];
-    sedes: Sede[];
-    liquidaciones: LiquidacionDentista[];
-  }> {
-    const pagos: Array<PagoSede> = await this.repository.getPagosSemanales();
-    const sedes: Array<Sede> = await this.repository.getSedes();
-    const liquidaciones: Array<LiquidacionDentista> =
-      await this.repository.getLiquidacionesSemanales();
-
-    console.log(
-      'pagos:',
-      pagos[0],
-      'Sedes:',
-      sedes[0],
-      'liquidaciones',
-      liquidaciones[0],
-    );
-    return { pagos, sedes, liquidaciones };
+  remove(id: number) {
+    return `This action removes a #${id} liquidacione`;
   }
 }
