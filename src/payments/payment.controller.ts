@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { Public } from 'src/auth/decorators/public.decorator';
 import { PaymentService } from './payment.service';
 
 @Controller('pagos')
@@ -14,8 +15,10 @@ export class PagosController {
   constructor(private readonly pagosService: PaymentService) {}
 
   @Get()
-  findAll() {
-    return this.pagosService.findAll();
+  @Public()
+  async findAll() {
+    console.log('findall');
+    return await this.pagosService.findAll();
   }
 
   @Get(':id')

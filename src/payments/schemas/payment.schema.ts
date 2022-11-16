@@ -12,6 +12,13 @@ export class Payment extends Document {
   @Prop()
   id_medio_pago?: string;
   @Prop()
+  medio_pago:
+    | 'Efectivo'
+    | 'Mercadopago Dar Mas'
+    | 'Bono'
+    | 'Mercadopago Especialista'
+    | 'GiftCard';
+  @Prop()
   id_sucursal?: string;
   @Prop()
   nombre_paciente?: string;

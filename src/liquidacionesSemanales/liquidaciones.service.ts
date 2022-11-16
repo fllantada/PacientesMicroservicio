@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { LiquidacionDentista } from './domain/entities/LiquidacionDentista';
 import { PagoSede } from './domain/entities/PagoSede';
 import { Sede } from './domain/entities/Sede';
+
 import { LiquidacionSemanalSedeCreator } from './LiquidacionSemanalSedeCreator';
 import { LiquidacionesRepository } from './liquidaciones.repository';
 
@@ -19,30 +20,9 @@ export class LiquidacionesService {
     this.liquidacionesSedes = await this.createEmptyLiquidaciones(sedes);
 
     pagos.forEach((pago: PagoSede) => this.addPagoToLiquidaciones(pago));
-
-    pagos.forEach((pago: PagoSede) => {
-      // a que sede pertenece?
-      const idSucursal = pago.id_sucursal;
-      // filtro
-
-      const liquidacionSede: LiquidacionSemanalSedeCreator =
-        this.liquidacionesSedes.filter(
-          (liq: LiquidacionSemanalSedeCreator) => liq.idSucursal === idSucursal,
-        )[0];
-      // agrego el pago
-      liquidacionSede.agregarPago(pago);
-    });
-
-    // recorro liquidaciones y las voy agregando a las liquidaciones de la sede correspondiente
-
-    liquidaciones.forEach((liquidacion: LiquidacionDentista) => {
-      const idSucursal = liquidacion.id_sucursal;
-      const liquidacionSede: LiquidacionSemanalSedeCreator =
-        this.liquidacionesSedes.filter(
-          (liq: LiquidacionSemanalSedeCreator) => liq.idSucursal === idSucursal,
-        )[0];
-      liquidacionSede.agregarLiquidacion(liquidacion);
-    });
+    liquidaciones.forEach((liquidacion: LiquidacionDentista) =>
+      this.addLiquidacionToLiquidaciones(liquidacion),
+    );
 
     this.liquidacionesSedes.forEach(
       (liquidacionTerminada: LiquidacionSemanalSedeCreator) => {
@@ -50,7 +30,7 @@ export class LiquidacionesService {
         this.liquidacionesTerminadas.push(liq);
       },
     );
-
+    console.log('liquidacionesTerminadas', this.liquidacionesTerminadas);
     return this.liquidacionesTerminadas;
   }
 
@@ -59,6 +39,10 @@ export class LiquidacionesService {
     const liquidacionSede = this.findLiquidacion(pago.id_sucursal);
     // agrego el pago
     liquidacionSede.agregarPago(pago);
+  }
+  addLiquidacionToLiquidaciones(liquidacion: LiquidacionDentista) {
+    const liquidacionSede = this.findLiquidacion(liquidacion.id_sucursal);
+    liquidacionSede.agregarLiquidacion(liquidacion);
   }
 
   findLiquidacion(idSucursal: number): LiquidacionSemanalSedeCreator {
