@@ -7,7 +7,7 @@ export class SedesService {
 
   async getActiveSedes() {
     const sedes = await this.repository.findAll({});
-    console.log('sedes es: ', sedes);
+
     return sedes;
   }
 

@@ -11,6 +11,7 @@ import { LiquidacionesModule } from './UseCaseLiquidacionesSemanales/liquidacion
 import { PagosModule } from './pagos/pagos.module';
 import { DatesModule } from './utils/dates/dates.module';
 import { SedesModule } from './sedes/sedes.module';
+import { DentistasModule } from './dentistas/dentistas.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { SedesModule } from './sedes/sedes.module';
     PagosModule,
     DatesModule,
     SedesModule,
+    DentistasModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: AtGuard }],
   controllers: [AppController],
