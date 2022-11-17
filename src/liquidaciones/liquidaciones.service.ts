@@ -17,11 +17,22 @@ export class LiquidacionesService {
 
   async getLiquidacionLastWeek() {
     console.log('getLiquidacionLastWeek');
-    console.log(this.datesService.lunesEstaSemana());
+    console.log(this.datesService.lunesEstaSemanaDate());
 
-    const data = await this.repository.find({});
+    const filter = {
+      $and: [
+        {
+          fecha_termino: { $gte: this.datesService.lunesSemanaAnteriorDate() },
+        },
+        {
+          fecha_termino: { $lte: this.datesService.lunesEstaSemanaDate() },
+        },
+      ],
+    };
 
-    console.log(data[0]);
+    const data = await this.repository.find(filter);
+
+    console.log(data[0], data.length);
     return data;
   }
 
