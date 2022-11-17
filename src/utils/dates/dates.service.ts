@@ -1,15 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import moment from 'moment';
 
 @Injectable()
 export class DatesService {
-  lunesEstaSemana(): string {
-    return moment().isoWeekday('Monday').format('YYYY-MM-DD');
+  lunesEstaSemanaString(): string {
+    const monday = this.lunesEstaSemanaDate();
+    return monday.toISOString().slice(0, 10);
   }
-  lunesSemanaAnterior(): string {
-    return moment()
-      .isoWeekday('Monday')
-      .subtract(1, 'week')
-      .format('YYYY-MM-DD');
+  lunesSemanaAnteriorString(): string {
+    const monday = this.lunesSemanaAnteriorDate();
+    return monday.toISOString().slice(0, 10);
+  }
+  lunesEstaSemanaDate(): Date {
+    const date = new Date();
+    const day = date.getDay();
+    const diff = date.getDate() - day + (day == 0 ? -6 : 1);
+    return new Date(date.setDate(diff));
+  }
+  lunesSemanaAnteriorDate(): Date {
+    const date = new Date();
+    const day = date.getDay();
+    const diff = date.getDate() - day + (day == 0 ? -6 : 1);
+    return new Date(date.setDate(diff - 7));
   }
 }

@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 
-@Controller('liquidaciones')
+@Controller('liquidaciones/semanales')
 export class LiquidacionesController {
   @Get()
   getHello(): string {

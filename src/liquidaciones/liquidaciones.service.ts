@@ -1,15 +1,28 @@
 import { Injectable } from '@nestjs/common';
+import { DatesService } from 'src/utils/dates/dates.service';
 import { CreateLiquidacioneDto } from './dto/create-liquidacione.dto';
 import { UpdateLiquidacioneDto } from './dto/update-liquidacione.dto';
+import { LiquidacionesRepository } from './liquidaciones.repository';
 
 @Injectable()
 export class LiquidacionesService {
+  constructor(
+    private repository: LiquidacionesRepository,
+    private datesService: DatesService,
+  ) {}
+
   create(createLiquidacioneDto: CreateLiquidacioneDto) {
     return 'This action adds a new liquidacione';
   }
 
-  findAll() {
-    return `This action returns all liquidaciones`;
+  async getLiquidacionLastWeek() {
+    console.log('getLiquidacionLastWeek');
+    console.log(this.datesService.lunesEstaSemana());
+
+    const data = await this.repository.find({});
+
+    console.log(data[0]);
+    return data;
   }
 
   findOne(id: number) {

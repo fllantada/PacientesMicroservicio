@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { LiquidacionesService } from './liquidaciones.service';
 import { CreateLiquidacioneDto } from './dto/create-liquidacione.dto';
 import { UpdateLiquidacioneDto } from './dto/update-liquidacione.dto';
@@ -14,7 +22,7 @@ export class LiquidacionesController {
 
   @Get()
   findAll() {
-    return this.liquidacionesService.findAll();
+    return this.liquidacionesService.getLiquidacionLastWeek();
   }
 
   @Get(':id')
@@ -23,7 +31,10 @@ export class LiquidacionesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLiquidacioneDto: UpdateLiquidacioneDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateLiquidacioneDto: UpdateLiquidacioneDto,
+  ) {
     return this.liquidacionesService.update(+id, updateLiquidacioneDto);
   }
 

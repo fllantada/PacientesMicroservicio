@@ -7,11 +7,11 @@ import { UsersModule } from './users/users.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AtGuard } from './auth/guards/at.guard';
 import { AppController } from './app.controller';
-import { LiquidacionesModule } from './UseCaseLiquidacionesSemanales/liquidaciones.module';
 import { PagosModule } from './pagos/pagos.module';
 import { DatesModule } from './utils/dates/dates.module';
 import { SedesModule } from './sedes/sedes.module';
 import { DentistasModule } from './dentistas/dentistas.module';
+import { LiquidacionesModule } from './liquidaciones/liquidaciones.module';
 
 @Module({
   imports: [
@@ -20,11 +20,11 @@ import { DentistasModule } from './dentistas/dentistas.module';
     PacientesModule,
     AuthModule,
     UsersModule,
-    LiquidacionesModule,
     PagosModule,
     DatesModule,
     SedesModule,
     DentistasModule,
+    LiquidacionesModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: AtGuard }],
   controllers: [AppController],
