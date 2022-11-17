@@ -7,7 +7,7 @@ import { UsersModule } from './users/users.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AtGuard } from './auth/guards/at.guard';
 import { AppController } from './app.controller';
-import { LiquidacionesModule } from './liquidacionesSemanales/liquidaciones.module';
+import { LiquidacionesModule } from './UseCaseLiquidacionesSemanales/liquidaciones.module';
 import { PagosModule } from './pagos/pagos.module';
 import { DatesModule } from './utils/dates/dates.module';
 import { SedesModule } from './sedes/sedes.module';
