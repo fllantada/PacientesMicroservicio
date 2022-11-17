@@ -1,28 +1,28 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type PaymentDocument = Payment & Document;
+export type pagoDocument = Pago & Document;
 
 @Schema()
-export class Payment extends Document {
+export class Pago extends Document {
   @Prop({ required: true, unique: true })
   id_pago_dentalink: number;
   @Prop({ required: true })
   id_paciente: string;
   @Prop()
-  id_medio_pago?: string;
-  @Prop()
+  id_medio_pago: string;
+  @Prop({ required: true })
   medio_pago:
     | 'Efectivo'
     | 'Mercadopago Dar Mas'
     | 'Bono'
     | 'Mercadopago Especialista'
     | 'GiftCard';
-  @Prop()
-  id_sucursal?: string;
+  @Prop({ required: true })
+  id_sucursal: string;
   @Prop()
   nombre_paciente?: string;
-  @Prop()
+  @Prop({ required: true })
   monto_pago: number;
   @Prop()
   fecha_recepcion: Date;
@@ -34,4 +34,4 @@ export class Payment extends Document {
   fecha_carga: Date;
 }
 
-export const PaymentSchema = SchemaFactory.createForClass(Payment);
+export const pagoSchema = SchemaFactory.createForClass(Pago);

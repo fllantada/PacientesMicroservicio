@@ -1,23 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSedeDto } from './dto/create-sede.dto';
-import { UpdateSedeDto } from './dto/update-sede.dto';
+import { SedesRepository } from './sedes.repository';
 
 @Injectable()
 export class SedesService {
-  create(createSedeDto: CreateSedeDto) {
-    return 'This action adds a new sede';
-  }
+  constructor(private repository: SedesRepository) {}
 
-  findAll() {
-    return `This action returns all sedes`;
+  async getActiveSedes() {
+    const sedes = await this.repository.findAll({});
+    console.log('sedes es: ', sedes);
+    return sedes;
   }
 
   findOne(id: number) {
     return `This action returns a #${id} sede`;
-  }
-
-  update(id: number, updateSedeDto: UpdateSedeDto) {
-    return `This action updates a #${id} sede`;
   }
 
   remove(id: number) {

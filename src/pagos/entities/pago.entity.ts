@@ -1,4 +1,5 @@
-export class Payment {
+export class Pago {
+  id_pago_dentalink: number;
   id_sucursal: number;
   medio_pago:
     | 'Efectivo'

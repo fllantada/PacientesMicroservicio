@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { PaymentRepository } from './payment.repository';
+import { PagosRepository } from './pagos.repository';
 
 @Injectable()
-export class PaymentService {
-  constructor(private repository: PaymentRepository) {}
+export class PagosService {
+  constructor(private repository: PagosRepository) {}
 
   findAll() {
     console.log('Find all desde service');
     return this.repository.find({});
   }
-  getPaymentsBetweenDates(startDate: Date, endDate: Date) {
+  getPagosBetweenDates(startDate: Date, endDate: Date) {
     return this.repository.find({
       fecha_recepcion: { $gte: startDate, $lte: endDate },
     });

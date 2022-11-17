@@ -8,8 +8,9 @@ import { APP_GUARD } from '@nestjs/core';
 import { AtGuard } from './auth/guards/at.guard';
 import { AppController } from './app.controller';
 import { LiquidacionesModule } from './liquidacionesSemanales/liquidaciones.module';
-import { PaymentModule } from './payments/payment.module';
+import { PagosModule } from './pagos/pagos.module';
 import { DatesModule } from './utils/dates/dates.module';
+import { SedesModule } from './sedes/sedes.module';
 
 @Module({
   imports: [
@@ -19,8 +20,9 @@ import { DatesModule } from './utils/dates/dates.module';
     AuthModule,
     UsersModule,
     LiquidacionesModule,
-    PaymentModule,
+    PagosModule,
     DatesModule,
+    SedesModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: AtGuard }],
   controllers: [AppController],

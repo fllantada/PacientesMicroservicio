@@ -8,11 +8,11 @@ import {
   Delete,
 } from '@nestjs/common';
 import { Public } from 'src/auth/decorators/public.decorator';
-import { PaymentService } from './payment.service';
+import { PagosService } from './pagos.service';
 
 @Controller('pagos')
 export class PagosController {
-  constructor(private readonly pagosService: PaymentService) {}
+  constructor(private readonly pagosService: PagosService) {}
 
   @Get()
   @Public()
